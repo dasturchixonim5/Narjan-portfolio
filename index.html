@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="uz" class="dark">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1" />
+    <title>DESIGNER.UZ — Narjan Design Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700;800;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+    <script src="i18n.js"></script>
+</head>
+
+<body>
+
+    <!-- Cursor -->
+    <div id="cursor-dot"></div>
+    <div id="cursor-ring"></div>
+
+    <!-- Background -->
+    <canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+    <!-- ══ NAVBAR ══ -->
+    <nav id="navbar">
+        <div class="wrap nav-wrap">
+            <a href="#" class="nav-logo">DESIGNER<span class="dot">.</span>UZ</a>
+            <ul class="nav-links" id="nav-links">
+                <!-- Dinamik to'ldiriladi -->
+            </ul>
+            <div class="nav-actions">
+                <div class="lang-pill">
+                    <button class="lang-btn on" data-lang="uz">UZ</button>
+                    <button class="lang-btn" data-lang="ru">RU</button>
+                    <button class="lang-btn" data-lang="en">EN</button>
+                </div>
+                <button class="theme-btn" id="theme-toggle">
+                    <div class="t-ico d" id="t-ico">
+                        <svg id="t-svg-moon" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                        </svg>
+                        <svg id="t-svg-sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+                            <circle cx="12" cy="12" r="5" />
+                            <line x1="12" y1="1" x2="12" y2="3" />
+                            <line x1="12" y1="21" x2="12" y2="23" />
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                            <line x1="1" y1="12" x2="3" y2="12" />
+                            <line x1="21" y1="12" x2="23" y2="12" />
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                        </svg>
+                    </div>
+                    <span id="t-label">QORONG'I</span>
+                </button>
+                <!-- <a href="about2.html" class="btn-about" id="about-nav-btn">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                        <circle cx="12" cy="7" r="4"/>
+                    </svg>
+                    <span id="about-nav-txt">Men haqimda</span>
+                </a> -->
+                <a href="#contact" class="btn-nav" id="nav-order">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="22" y1="2" x2="11" y2="13" />
+                        <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                    </svg>
+                    <span id="nav-order-txt">Zakaz Berish</span>
+                </a>
+            </div>
+            <button class="hamburger" id="hamburger">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round">
+                    <line x1="3" y1="6" x2="21" y2="6" />
+                    <line x1="3" y1="12" x2="21" y2="12" />
+                    <line x1="3" y1="18" x2="21" y2="18" />
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mob-menu">
+        <div class="mob-head">
+            <span class="nav-logo">DESIGNER<span class="dot">.</span>UZ</span>
+            <button class="hamburger" id="mob-close">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+            </button>
+        </div>
+        <ul class="mob-links" id="mob-links"></ul>
+        <div class="mob-langs">
+            <button class="mob-lang-btn on" data-lang="uz">UZ</button>
+            <button class="mob-lang-btn" data-lang="ru">RU</button>
+            <button class="mob-lang-btn" data-lang="en">EN</button>
+        </div>
+        <div style="margin-top: 2rem; text-align: center;">
+            <a href="about2.html" class="btn-about-mob" id="about-mob-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                </svg>
+                <span id="about-mob-txt">Men haqimda</span>
+            </a>
+        </div>
+    </div>
+
+    <main>
+        <!-- ══ HERO ══ -->
+        <section id="hero">
+            <div class="hero-noise"></div>
+            <div class="hero-inner">
+                <div class="hero-left">
+                    <div class="hero-badge fi" style="transition-delay:.1s">
+                        <span class="badge-dot"></span>
+                        <span id="hero-badge-txt">Grafik Dizayner — Vobkent, Buxoro</span>
+                    </div>
+                    <div class="fi" style="transition-delay:.2s">
+                        <h1 class="hero-title">
+                            <span class="t1" id="hero-t1">GRAFIK</span>
+                            <span class="t2" id="hero-t2">DIZAYN</span>
+                            <span class="t3" id="hero-t3">PORTFOLIO</span>
+                        </h1>
+                    </div>
+                    <p class="hero-sub fi" id="hero-sub" style="transition-delay:.3s">
+                        Infografika, poster, brend identifikatsiya — har bir loyiha o'ziga xos vizual til bilan yaratiladi.
+                    </p>
+                    <div class="hero-btns fi" style="transition-delay:.4s">
+                        <a href="#portfolio" class="btn-primary" id="hero-btn1">
+                            <span id="hero-btn1-txt">Ishlarni Ko'rish</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12" />
+                                <polyline points="12 5 19 12 12 19" />
+                            </svg>
+                        </a>
+                        <a href="#contact" class="btn-outline" id="hero-btn2">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="22" y1="2" x2="11" y2="13" />
+                                <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                            </svg>
+                            <span id="hero-btn2-txt">Zakaz Berish</span>
+                        </a>
+                        <a href="about2.html" class="btn-outline" id="about-hero-btn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                <circle cx="12" cy="7" r="4" />
+                            </svg>
+                            <span id="about-hero-txt">Men haqimda</span>
+                        </a>
+                    </div>
+                    <div class="hero-stats fi" style="transition-delay:.5s">
+                        <div>
+                            <div class="stat-num">2<span>+</span></div>
+                            <div class="stat-lbl" id="stat-lbl-1">Loyiha</div>
+                        </div>
+                        <div>
+                            <div class="stat-num">2<span></span></div>
+                            <div class="stat-lbl" id="stat-lbl-2">Yil Tajriba</div>
+                        </div>
+                        <div>
+                            <div class="stat-num">70<span>%</span></div>
+                            <div class="stat-lbl" id="stat-lbl-3">Mamnun Mijoz</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ══ SERVICES ══ -->
+        <section id="services">
+            <div class="wrap">
+                <div class="sec-head fi">
+                    <div class="sec-line">
+                        <span class="sec-bar"></span>
+                        <h2 class="sec-h2" id="srv-title">Xizmatlar</h2>
+                    </div>
+                    <p class="sec-sub" id="srv-sub">Har qanday loyiha uchun professional yechimlar</p>
+                </div>
+                <div class="srv-grid" id="srv-grid"></div>
+            </div>
+        </section>
+
+        <!-- ══ PORTFOLIO ══ -->
+        <section id="portfolio">
+            <div class="wrap">
+                <div class="fi" style="margin-bottom:4rem;display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:1.5rem;">
+                    <div>
+                        <div class="sec-line">
+                            <span class="sec-bar"></span>
+                            <h2 class="sec-h2" id="port-title">Portfolio</h2>
+                        </div>
+                        <p class="sec-sub" id="port-sub">So'nggi ishlar</p>
+                    </div>
+                </div>
+                <div class="port-grid" id="port-grid"></div>
+                <div class="fi" style="text-align: center; margin-top: 4rem;">
+                    <a href="image.html" class="btn-outline" style="display: inline-flex; width: auto; padding: 0 2rem;">
+                        <span id="btn-view-all">Barcha ishlarni ko'rish</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 8px;">
+                            <line x1="5" y1="12" x2="19" y2="12" />
+                            <polyline points="12 5 19 12 12 19" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══ PRICING ══ -->
+        <section id="pricing">
+            <div class="price-bg1"></div>
+            <div class="price-bg2"></div>
+            <div class="wrap" style="position:relative;z-index:1;">
+                <div class="price-hdr fi">
+                    <div class="price-badge">
+                        <span class="price-badge-dot"></span>
+                        <span id="price-badge-txt">Narxlar</span>
+                    </div>
+                    <h2 class="price-h2" id="price-title">Narxlar</h2>
+                    <p class="price-sub" id="price-sub">Har qanday byudjet uchun qulay narxlar</p>
+                </div>
+                <div class="price-grid" id="price-grid"></div>
+            </div>
+        </section>
+
+        <!-- ══ PROCESS ══ -->
+        <section id="process">
+            <div class="wrap">
+                <div class="fi" style="margin-bottom:4rem;">
+                    <div class="sec-line">
+                        <span class="sec-bar"></span>
+                        <h2 class="sec-h2" id="proc-title">Ish Jarayoni</h2>
+                    </div>
+                </div>
+                <div class="proc-grid" id="proc-grid"></div>
+            </div>
+        </section>
+
+        <!-- ══ LOCATION ══ -->
+        <section id="location">
+            <div class="wrap">
+                <div class="loc-box fi">
+                    <div class="loc-glow"></div>
+                    <div class="loc-info">
+                        <h2 id="loc-title">Manzil</h2>
+                        <div class="loc-items">
+                            <div class="loc-item">
+                                <div class="loc-ico">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                                        <circle cx="12" cy="10" r="3" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4>Local Base</h4>
+                                    <p id="loc-addr">Vobkent tumani, Buxoro viloyati, O'zbekiston</p>
+                                </div>
+                            </div>
+                            <div class="loc-item">
+                                <div class="loc-ico">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10" />
+                                        <line x1="2" y1="12" x2="22" y2="12" />
+                                        <path
+                                            d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4>Global Reach</h4>
+                                    <p id="loc-note">Online hamkorlik — butun O'zbekiston bo'yicha</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="loc-map">
+                        <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=64.4679%2C39.9712%2C64.5679%2C40.0712&layer=mapnik&marker=40.0212%2C64.5179" width="100%" height="100%" style="border:none; border-radius:.75rem; filter: saturate(0.85);" allowfullscreen
+                            loading="lazy" title="Vobkent, Buxoro viloyati"></iframe>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Vobkent+Bukhara+Uzbekistan" target="_blank" rel="noreferrer" class="map-open-btn">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                                <circle cx="12" cy="10" r="3" />
+                            </svg> Google Maps'da ochish
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══ CONTACT ══ -->
+        <section id="contact">
+            <div class="contact-glow"></div>
+            <div class="wrap" style="position:relative;z-index:1;">
+                <div class="contact-top fi">
+                    <div class="badge-pill" style="display:inline-flex;">
+                        <span class="dot"></span>
+                        <span id="contact-badge-txt">Bog'lanish</span>
+                    </div>
+                    <h2 class="contact-title" id="contact-title">Keling, Loyihangizni Birgalikda Yarataylik</h2>
+                </div>
+                <div class="contact-body">
+                    <div class="fi" style="transition-delay:.2s">
+                        <form id="contact-form">
+                            <div class="frow">
+                                <div class="fg">
+                                    <label class="flbl" for="f-name"><span id="lbl-name">Ismingiz</span>
+                                        <span>*</span></label>
+                                    <input id="f-name" class="finp" type="text" required placeholder="Ismi Sharif" />
+                                </div>
+                                <div class="fg">
+                                    <label class="flbl" for="f-srv"><span id="lbl-srv">Xizmat turi</span>
+                                        <span>*</span></label>
+                                    <select id="f-srv" class="fsel" required>
+                                        <option value="" disabled selected id="opt-placeholder">Xizmatni tanlang
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="frow">
+                                <div class="fg">
+                                    <label class="flbl" for="f-price" id="lbl-price">Narxi (taxminan)</label>
+                                    <input id="f-price" class="finp" type="text" placeholder="50 000 so'm" />
+                                </div>
+                                <div class="fg">
+                                    <label class="flbl" for="f-tg" id="lbl-tg">Telegram username (@nickname)</label>
+                                    <input id="f-tg" class="finp" type="text" placeholder="@username" />
+                                </div>
+                            </div>
+                            <div class="fg">
+                                <label class="flbl" for="f-dl" id="lbl-dl">Muddat (necha kun)</label>
+                                <input id="f-dl" class="finp" type="text" placeholder="2–3 kun" />
+                            </div>
+                            <div class="fg">
+                                <label class="flbl" for="f-msg" id="lbl-msg">Xabaringiz (qo'shimcha)</label>
+                                <textarea id="f-msg" class="ftxt" placeholder="Loyiha haqida qo'shimcha ma'lumot..."></textarea>
+                            </div>
+                            <div class="fhint">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                                </svg>
+                                <span>Tugmani bosganda xabar avtomatik tayyorlanadi va <span
+                                        class="acc">@Narjan_designer</span> Telegram chati ochiladi — faqat
+                                <b>"Yuborish"</b> tugmasini bosing.</span>
+                            </div>
+                            <button type="submit" class="btn-sub" id="btn-sub">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="22" y1="2" x2="11" y2="13" />
+                                    <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                                </svg>
+                                <span id="btn-sub-txt">Telegramga Yuborish</span>
+                            </button>
+                        </form>
+                    </div>
+                    <div class="fi" style="transition-delay:.4s">
+                        <h3 class="cinfo-name">NARJAN DESIGN</h3>
+                        <p class="cinfo-role">Graphic Designer</p>
+                        <div class="clinks">
+                            <a href="https://t.me/Narjandesigner" target="_blank" rel="noreferrer" class="clink">
+                                <div class="clink-ico">
+                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <line x1="22" y1="2" x2="11" y2="13" />
+                                        <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div class="clink-lbl">Telegram</div>
+                                    <div class="clink-val">@Narjan_designer</div>
+                                </div>
+                            </a>
+                            <a href="https://instagram.com/narjan_designer" target="_blank" rel="noreferrer" class="clink">
+                                <div class="clink-ico">
+                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div class="clink-lbl">Instagram</div>
+                                    <div class="clink-val">@narjan_designer</div>
+                                </div>
+                            </a>
+                            <a href="https://t.me/narjandesigner" target="_blank" rel="noreferrer" class="clink">
+                                <div class="clink-ico">
+                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path
+                                            d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.66 16c.02.301.02.603 0 .92z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div class="clink-lbl">Kanal</div>
+                                    <div class="clink-val">@narjandesigner</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ══ FOOTER ══ -->
+    <footer>
+        <div class="foot-inner">
+            <div>
+                <a href="#" class="foot-logo">DESIGNER<span class="dot">.</span>UZ</a>
+                <p class="foot-copy">© <span id="yr"></span> Narjan Designer. All rights reserved.</p>
+            </div>
+            <button class="scroll-top" id="scroll-top">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="18 15 12 9 6 15" />
+                </svg>
+            </button>
+        </div>
+    </footer>
+
+    <!-- Lightbox -->
+    <div id="lightbox">
+        <button id="lightbox-close" aria-label="Yopish">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+        </button>
+        <button id="lightbox-prev" aria-label="Oldingi">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6" />
+            </svg>
+        </button>
+        <div id="lightbox-img-wrap">
+            <img id="lightbox-img" src="" alt="Portfolio rasm" />
+        </div>
+        <button id="lightbox-next" aria-label="Keyingi">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6" />
+            </svg>
+        </button>
+        <div id="lightbox-counter">1 / 5</div>
+    </div>
+
+    <div id="toast"></div>
+
+    <script src="main.js"></script>
+</body>
+
+</html>
