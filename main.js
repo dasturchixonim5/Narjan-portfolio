@@ -249,7 +249,7 @@ function rGallery(t) {
         '7.jpg', '8.jpg', '9.jpg', '10.jpg', '11.jpg', '12.jpg', '13.jpg',
         '14.png', '15.png', '16.png', '17.png', '18.png', '19.png', '20.png',
         '21.jpg', '22.png', '23.png', '24.jpg', '25.jpg', '26.jpg', '27.jpg',
-        '28.jpg', '29.jpg', '30.jpg', '31.jpg', '32.jpg', '33.jpg', '34.jpg', 'photo_2026-07-11_12-34-21.jpg'
+        '28.jpg', '29.jpg', '30.jpg', '31.jpg', '32.jpg', '33.jpg', '34.jpg', 'photo_2026-07-11_12-34-21.jpg', 'logo24.png.png'
     ];
     document.getElementById('gallery-grid').innerHTML = imgs.map((img, i) => `
     <div class="port-item fi" style="transition-delay:${(i % 5) * 0.05}s">
